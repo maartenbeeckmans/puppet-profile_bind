@@ -20,7 +20,7 @@ class profile_bind (
   create_resources(bind::acl, $bind_acls)
   create_resources(bind::zone, $bind_zones)
   create_resources(bind::view, $bind_views)
-  create_resources(recource_record, $bind_records)
+  create_resources(resource_record, $bind_records)
 
   if $manage_firewall {
     firewall { '00053 allow bind':
