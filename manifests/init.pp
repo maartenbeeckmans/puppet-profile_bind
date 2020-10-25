@@ -3,7 +3,7 @@
 #
 class profile_bind (
   Array[String]      $forwarders      = ['8.8.8.8', '8.8.4.4'],
-  Enum['yes', 'no']  $dnssec          = true,
+  Enum['yes', 'no']  $dnssec          = 'yes',
   Boolean            $manage_firewall = true,
   Hash[String, Hash] $zones           = {},
   Hash[String, Hash] $keys            = {},
