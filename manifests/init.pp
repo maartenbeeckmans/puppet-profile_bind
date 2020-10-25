@@ -13,7 +13,7 @@ class profile_bind (
     forwarders    => $forwarders,
     dnssec_enable => $dnssec,
   }
-  create_resources(dns::zones, $zones, $zones_defaults)
+  create_resources(dns::zones, $zones)
   if $manage_firewall {
     firewall { '00053 allow bind':
       dport  => 53,
