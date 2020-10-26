@@ -13,9 +13,15 @@ class profile_bind (
   }
   create_resources(dns::zone, $zones, $zones_defaults)
   if $manage_firewall {
-    firewall { '00053 allow bind':
+    firewall { '00053 allow bind TCP':
       dport  => 53,
       action => 'accept',
+      proto  => 'tcp',
+    }
+    firewall { '00053 allow bind UDP':
+      dport  => 53,
+      action => 'accept',
+      proto  => 'udp',
     }
   }
 }
