@@ -3,7 +3,6 @@
 #
 class profile_bind (
   Array[String]      $forwarders      = ['8.8.8.8', '8.8.4.4'],
-  Enum['yes', 'no']  $dnssec          = 'yes',
   Boolean            $manage_firewall = true,
   Hash[String, Hash] $zones           = {},
   Hash               $zones_defaults  = {},
@@ -11,7 +10,6 @@ class profile_bind (
 ) {
   class { 'dns':
     forwarders    => $forwarders,
-    dnssec_enable => $dnssec,
   }
   create_resources(dns::zone, $zones, $zones_defaults)
   if $manage_firewall {
