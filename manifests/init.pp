@@ -2,17 +2,17 @@
 #
 #
 class profile_bind (
-  Array[String]      $forwarders      = ['8.8.8.8', '8.8.4.4'],
-  Boolean            $manage_firewall = true,
-  Hash[String, Hash] $zones           = {},
-  Hash               $zones_defaults  = {},
-  Hash[String, Hash] $keys            = {},
+  Array[String]      $forwarders            = ['8.8.8.8', '8.8.4.4'],
+  Boolean            $manage_firewall_entry = true,
+  Hash[String, Hash] $zones                 = {},
+  Hash               $zones_defaults        = {},
+  Hash[String, Hash] $keys                  = {},
 ) {
   class { 'dns':
     forwarders    => $forwarders,
   }
   create_resources(dns::zone, $zones, $zones_defaults)
-  if $manage_firewall {
+  if $manage_firewall_entry {
     firewall { '00053 allow bind TCP':
       dport  => 53,
       action => 'accept',
