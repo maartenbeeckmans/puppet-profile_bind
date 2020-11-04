@@ -7,6 +7,8 @@ class profile_bind (
   Hash[String, Hash] $zones                 = {},
   Hash               $zones_defaults        = {},
   Hash[String, Hash] $keys                  = {},
+  Boolean            $forward_consul        = false,
+  Array[String]      $consul_forwarders     = [],
 ) {
   class { 'dns':
     forwarders    => $forwarders,
@@ -22,6 +24,14 @@ class profile_bind (
       dport  => 53,
       action => 'accept',
       proto  => 'udp',
+    }
+  }
+  if $forward_consul {
+    dns::zone { 'consul':
+      zonetype    => 'forward',
+      forward     => 'only',
+      forearders  => $consul_forwarders,
+      manage_file => false,
     }
   }
 }
