@@ -30,7 +30,7 @@ class profile_bind (
     dns::zone { 'consul':
       zonetype    => 'forward',
       forward     => 'only',
-      forearders  => $consul_forwarders,
+      forwarders  => $consul_forwarders,
       manage_file => false,
     }
   }
