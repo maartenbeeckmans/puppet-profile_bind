@@ -14,6 +14,7 @@ class profile_bind (
     forwarders    => $forwarders,
   }
   create_resources(dns::zone, $zones, $zones_defaults)
+  create_resources(dns::key, $keys)
   if $manage_firewall_entry {
     firewall { '00053 allow bind TCP':
       dport  => 53,
