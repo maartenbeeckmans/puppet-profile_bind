@@ -2,13 +2,15 @@
 #
 #
 class profile_bind (
-  Array[String]      $forwarders            = ['8.8.8.8', '8.8.4.4'],
-  Boolean            $manage_firewall_entry = true,
-  Hash[String, Hash] $zones                 = {},
-  Hash               $zones_defaults        = {},
-  Hash[String, Hash] $keys                  = {},
-  Boolean            $forward_consul        = false,
-  Array[String]      $consul_forwarders     = [],
+  Array[String]      $forwarders,
+  Boolean            $manage_firewall_entry,
+  Hash[String, Hash] $zones,
+  Hash               $zones_defaults,
+  Hash[String, Hash] $keys,
+  Boolean            $forward_consul,
+  String             $consul_domain,
+  String             $consul_server,
+  Integer            $consul_port,
 ) {
   class { 'dns':
     forwarders    => $forwarders,
@@ -28,10 +30,10 @@ class profile_bind (
     }
   }
   if $forward_consul {
-    dns::zone { 'consul':
+    dns::zone { $consul_domain:
       zonetype    => 'forward',
       forward     => 'only',
-      forwarders  => $consul_forwarders,
+      forwarders  => ["${consul_server} port ${consul_port}"],
       manage_file => false,
     }
   }

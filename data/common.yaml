@@ -1,0 +1,12 @@
+---
+profile_bind::forwarders:
+  - '8.8.8.8'
+  - '8.8.4.4'
+profile_bind::manage_firewall_entry: true
+profile_bind::zones: {}
+profile_bind::zones_defaults: {}
+profile_bind::keys: {}
+profile_bind::forward_consul: false
+profile_bind::consul_domain: 'consul'
+profile_bind::consul_server: '127.0.0.1'
+profile_bind::consul_port: 8600
