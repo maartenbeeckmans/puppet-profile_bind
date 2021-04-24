@@ -11,6 +11,9 @@ class profile_bind (
   String             $consul_domain,
   String             $consul_server,
   Integer            $consul_port,
+  String             $sd_service_name,
+  Array[String]      $sd_service_tags,
+  Boolean            $manage_sd_service            = lookup('manage_sd_service', Boolean, first, true),
 ) {
   class { 'dns':
     forwarders    => $forwarders,
@@ -35,6 +38,18 @@ class profile_bind (
       forward     => 'only',
       forwarders  => ["${consul_server} port ${consul_port}"],
       manage_file => false,
+    }
+  }
+  if $manage_sd_service {
+    consul::service { $sd_service_name:
+      checks => [
+        {
+          tcp      => "${facts[networking][ip]}:53",
+          interval => '10s',
+        }
+      ],
+      port   => 53,
+      tags   => $sd_service_tags,
     }
   }
 }

@@ -10,3 +10,5 @@ profile_bind::forward_consul: false
 profile_bind::consul_domain: 'consul'
 profile_bind::consul_server: '127.0.0.1'
 profile_bind::consul_port: 8600
+profile_bind::sd_service_name: 'bind'
+profile_bind::sd_service_tags: []
